@@ -1,11 +1,41 @@
 import time, os, sys
 import wiringpi as io
 
+
+class light(object):
+    def __init__(self, pin):
+        #make pins into output
+        io.pinMode(pin,1)
+        #set output low
+        io.digitalWrite(pin,0)
+        #set variables
+        self.status = 0
+        self.pin = pin
+
+    def on():
+        #turn light on
+        io.digitalWrite(self.pin,1)
+        self.status = 1
+
+    def off():
+        io.digitalWrite(self.pin,0)
+        self.status 0
+
+    def blink(times):
+        for _ in times:
+            self.on()
+            time.sleep(2)
+            self.off()
+            time.sleep(2)
+
+lightFL = light(21)
+FrontLeft.on()
+
 lights = {
     "LeftFront":{"pin":21,"status":0},
     "RightFront":{"pin":16,"status":0}
     }
-          
+
 def lightCtrl(names,status):
     for i in names:
         io.digitalWrite(lights[i]["pin"],status)
@@ -34,6 +64,5 @@ def lightTest():
     time.sleep(3)
     lightCtrl(["LeftFront","RightFront"],0)
 
-initResource()
-lightTest()
-
+#initResource()
+#lightTest()
