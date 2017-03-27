@@ -35,7 +35,7 @@ class light(object):
 
     def blink(self,times):
         for _ in range(times):
-            t = threading.Thread(target=blinkWorker)
+            t = threading.Thread(target=self.blinkWorker)
             threads.append(t)
             t.start()
 
@@ -47,12 +47,15 @@ except:
 
 #FL = FrontLeft, FR = FrontRight
 lightFL = light(21)
-lifhtFR = light(16)
+lightFR = light(16)
 lightFL.on()
 time.sleep(3)
 lightFL.off()
 time.sleep(3)
 lightFL.blink(3)
+lightFR.on()
+time.sleep(3)
+lightFR.off()
 
 lights = {
     "LeftFront":{"pin":21,"status":0},
