@@ -49,14 +49,7 @@ except:
 #FL = FrontLeft, FR = FrontRight
 lightFL = light(21)
 lightFR = light(16)
-lightFL.on()
-time.sleep(3)
-lightFL.off()
-time.sleep(3)
-lightFL.blink(3)
-lightFR.on()
-time.sleep(3)
-lightFR.off()
+lightFL.blink(5)
 
 lights = {
     "LeftFront":{"pin":21,"status":0},
