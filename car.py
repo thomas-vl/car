@@ -42,11 +42,8 @@ class light(object):
     def blink(self,times):
         self.times = times
         #Dit is een example voor threading omdat ik deze functie async wil laten lopen misschien moet het wat schoon gemaakt worden
-        #de variable threads houd altijd maar 1 thread vast dus hoeft geen list te zijn.
         #meer info over threading: https://pymotw.com/2/threading/
-        threads = []
         t = threading.Thread(target=self.blinkThread)
-        threads.append(t)
         t.start()
 
 #initialise GPIO
