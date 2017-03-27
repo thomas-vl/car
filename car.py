@@ -23,21 +23,21 @@ class light(object):
 
 
 
-    def blinkWorker(self):
+    def blinkWorker(self,pause):
         if (self.status == 0):
             self.on()
-            time.sleep(1)
+            time.sleep(pause)
             self.off()
-            time.sleep(1)
+            time.sleep(pause)
         else:
             self.off()
-            time.sleep(1)
+            time.sleep(pause)
             self.on()
-            time.sleep(1)
+            time.sleep(pause)
 
     def blinkThread(self):
         for _ in range(self.times):
-            self.blinkWorker()
+            self.blinkWorker(0.5)
 
     def blink(self,times):
         threads = []
@@ -56,6 +56,4 @@ except:
 lightFL = light(21)
 lightFR = light(16)
 lightFL.blink(5)
-lightFR.on()
-time.sleep(3)
-LightFR.off()
+lightFR.blink(4)
