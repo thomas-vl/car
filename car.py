@@ -3,8 +3,6 @@ import wiringpi as io
 
 
 class light(object):
-    threads = []
-
     def __init__(self, pin):
         #make pins into output
         io.pinMode(pin,1)
@@ -42,6 +40,7 @@ class light(object):
             self.blinkWorker()
 
     def blink(self,times):
+        threads = []
         self.times = times
         t = threading.Thread(target=self.blinkThread)
         threads.append(t)
