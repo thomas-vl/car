@@ -1,4 +1,4 @@
-import time, os, sys
+import time, os, sys, threading
 import wiringpi as io
 
 
@@ -21,12 +21,23 @@ class light(object):
         io.digitalWrite(self.pin,0)
         self.status = 0
 
-    def blink(self,times):
-        for _ in times:
+    def blinkWorker(self):
+        if (self.status == 0):
             self.on()
             time.sleep(1)
             self.off()
             time.sleep(1)
+        else:
+            self.off()
+            time.sleep(1)
+            self.on()
+            time.sleep(1)
+
+    def blink(self,times):
+        for _ in range(times):
+            t = threading.Thread(target=blinkWorker)
+            threads.append(t)
+            t.start()
 
 #initialise
 try:
@@ -34,7 +45,9 @@ try:
 except:
     print "GPIO issue", sys.exc_info()[0]
 
+#FL = FrontLeft, FR = FrontRight
 lightFL = light(21)
+lifhtFR = light(16)
 lightFL.on()
 time.sleep(3)
 lightFL.off()
