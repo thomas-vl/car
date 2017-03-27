@@ -3,6 +3,8 @@ import wiringpi as io
 
 
 class light(object):
+    threads = []
+
     def __init__(self, pin):
         #make pins into output
         io.pinMode(pin,1)
@@ -21,6 +23,8 @@ class light(object):
         io.digitalWrite(self.pin,0)
         self.status = 0
 
+
+
     def blinkWorker(self):
         if (self.status == 0):
             self.on()
@@ -33,12 +37,15 @@ class light(object):
             self.on()
             time.sleep(1)
 
+    def blinkThread(self)
+        for _ in range(self.times):
+            self.blinkWorker()
+
     def blink(self,times):
-        threads = []
-        for _ in range(times):
-            t = threading.Thread(target=self.blinkWorker)
-            threads.append(t)
-            t.start()
+        self.times = times
+        t = threading.Thread(target=self.blinkWorker)
+        threads.append(t)
+        t.start()
 
 #initialise
 try:
