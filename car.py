@@ -29,7 +29,7 @@ class light(object):
             time.sleep(2)
 
 lightFL = light(21)
-FrontLeft.on()
+lightFL.on()
 
 lights = {
     "LeftFront":{"pin":21,"status":0},
