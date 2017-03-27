@@ -12,16 +12,16 @@ class light(object):
         self.status = 0
         self.pin = pin
 
-    def on():
+    def on(self):
         #turn light on
         io.digitalWrite(self.pin,1)
         self.status = 1
 
-    def off():
+    def off(self):
         io.digitalWrite(self.pin,0)
         self.status 0
 
-    def blink(times):
+    def blink(self,times):
         for _ in times:
             self.on()
             time.sleep(2)
