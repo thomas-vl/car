@@ -24,9 +24,9 @@ class light(object):
     def blink(self,times):
         for _ in times:
             self.on()
-            time.sleep(2)
+            time.sleep(1)
             self.off()
-            time.sleep(2)
+            time.sleep(1)
 
 #initialise
 try:
@@ -36,6 +36,10 @@ except:
 
 lightFL = light(21)
 lightFL.on()
+time.sleep(3)
+lightFL.off()
+time.sleep(3)
+lightFL.blink(3)
 
 lights = {
     "LeftFront":{"pin":21,"status":0},
