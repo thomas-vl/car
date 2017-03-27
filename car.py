@@ -28,6 +28,12 @@ class light(object):
             self.off()
             time.sleep(2)
 
+#initialise
+try:
+    io.wiringPiSetupGpio()
+except:
+    print "GPIO issue", sys.exc_info()[0]
+
 lightFL = light(21)
 lightFL.on()
 
