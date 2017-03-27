@@ -18,12 +18,12 @@ class light(object):
         self.status = 1
 
     def off(self):
+        #turn light off
         io.digitalWrite(self.pin,0)
         self.status = 0
 
-
-
     def blinkWorker(self,pause):
+        #frits: ik ben er vrij zeker van dat dit met minder code kan.
         if (self.status == 0):
             self.on()
             time.sleep(pause)
@@ -40,13 +40,16 @@ class light(object):
             self.blinkWorker(0.5)
 
     def blink(self,times):
-        threads = []
         self.times = times
+        #Dit is een example voor threading omdat ik deze functie async wil laten lopen misschien moet het wat schoon gemaakt worden
+        #de variable threads houd altijd maar 1 thread vast dus hoeft geen list te zijn.
+        #meer info over threading: https://pymotw.com/2/threading/
+        threads = []
         t = threading.Thread(target=self.blinkThread)
         threads.append(t)
         t.start()
 
-#initialise
+#initialise GPIO
 try:
     io.wiringPiSetupGpio()
 except:
