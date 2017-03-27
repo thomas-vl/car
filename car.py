@@ -37,7 +37,7 @@ class light(object):
             self.on()
             time.sleep(1)
 
-    def blinkThread(self)
+    def blinkThread(self):
         for _ in range(self.times):
             self.blinkWorker()
 
