@@ -56,4 +56,7 @@ except:
 lightFL = light(21)
 lightFR = light(16)
 lightFL.blink(5)
+lightFR.on()
 lightFR.blink(4)
+time.sleep(3)
+lightFR.off()
