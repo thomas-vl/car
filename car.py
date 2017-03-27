@@ -19,7 +19,7 @@ class light(object):
 
     def off(self):
         io.digitalWrite(self.pin,0)
-        self.status 0
+        self.status = 0
 
     def blink(self,times):
         for _ in times:
