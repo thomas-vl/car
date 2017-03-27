@@ -34,6 +34,7 @@ class light(object):
             time.sleep(1)
 
     def blink(self,times):
+        threads = []
         for _ in range(times):
             t = threading.Thread(target=self.blinkWorker)
             threads.append(t)
