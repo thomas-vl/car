@@ -14,6 +14,8 @@ class car(object):
         def __init__(self):
             #initialise camera
             self.camera = picamera.PiCamera()
+            self.camera.resolution = (1024, 768)
+            self.camera.start_preview()
 
         def picture(self):
             self.camera.capture('image.jpg')
@@ -71,5 +73,6 @@ def lightTest():
 
 c = car();
 cam = c.camera()
+time.sleep(2)
 cam.picture()
 #lightTest()
