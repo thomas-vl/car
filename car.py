@@ -52,11 +52,15 @@ try:
 except:
     print "GPIO issue", sys.exc_info()[0]
 
+#testback
+lightB = light(26)
+lightB.on()
+
 #FL = FrontLeft, FR = FrontRight
 lightFL = light(21)
 lightFR = light(16)
 lightFL.blink(5)
 lightFR.on()
 lightFR.blink(4)
-time.sleep(3)
+time.sleep(10)
 lightFR.off()
