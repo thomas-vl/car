@@ -8,8 +8,6 @@ class car(object):
             io.wiringPiSetupGpio()
         except:
             print "GPIO issue", sys.exc_info()[0]
-        self.lightFL = self.light(21)
-        self.lightFR = self.light(16)
 
 
     class light(object):
@@ -56,8 +54,8 @@ class car(object):
             t = threading.Thread(target=self.blinkThread)
             t.start()
 
-
-
 c = car();
+c.lightFL = c.light(21)
+c.lightFR = c.light(16)
 c.lightFL.blink(2)
 c.lightFR.blink(2)
