@@ -1,5 +1,13 @@
-import time, os, sys, threading
+import time, os, sys, threading, picamera
 import wiringpi as io
+
+class camera(object):
+    def __init__(self):
+        #initialise camera
+        self.camera = picamera.PiCamera()
+
+    def picture(self):
+        self.camera.capture('image.jpg')
 
 class car(object):
     def __init__(self):
