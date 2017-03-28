@@ -1,13 +1,6 @@
 import time, os, sys, threading, picamera
 import wiringpi as io
 
-class camera(object):
-    def __init__(self):
-        #initialise camera
-        self.camera = picamera.PiCamera()
-
-    def picture(self):
-        self.camera.capture('image.jpg')
 
 class car(object):
     def __init__(self):
@@ -17,6 +10,13 @@ class car(object):
         except:
             print "GPIO issue", sys.exc_info()[0]
 
+    class camera(object):
+        def __init__(self):
+            #initialise camera
+            self.camera = picamera.PiCamera()
+
+        def picture(self):
+            self.camera.capture('image.jpg')
 
     class light(object):
         def __init__(self, pin):
@@ -62,8 +62,14 @@ class car(object):
             t = threading.Thread(target=self.blinkThread)
             t.start()
 
+def lightTest():
+    c.lightFL = c.light(21)
+    c.lightFR = c.light(16)
+    c.lightFL.blink(2)
+    c.lightFR.blink(2)
+
+
 c = car();
-c.lightFL = c.light(21)
-c.lightFR = c.light(16)
-c.lightFL.blink(2)
-c.lightFR.blink(2)
+cam = c.camera()
+cam.picture()
+#lightTest()
