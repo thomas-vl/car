@@ -23,13 +23,20 @@ class car(object):
     class crashSensor(object):
         def __init__(self):
             self.pin = 24
+            self.alive = True
             io.pinMode(self.pin,0)
             io.pullUpDnControl(self.pin,2)
 
+        def crashWorker(self):
+            while self.alive:
+                state = io.digitalRead(self.pin)
+                if state == 0:
+                    self.crash()
+                    self.alive = False
+
         def check(self):
-            state = io.digitalRead(self.pin)
-            if state == 0:
-                self.crash()
+            t = threading.Thread(name='crash',target=self.crashWorker)
+            t.start()
 
         def crash(self):
             c.lightFL.blink(2)
@@ -77,22 +84,17 @@ class car(object):
             self.times = times
             #Dit is een example voor threading omdat ik deze functie async wil laten lopen misschien moet het wat schoon gemaakt worden
             #meer info over threading: https://pymotw.com/2/threading/
-            t = threading.Thread(target=self.blinkThread)
+            t = threading.Thread(name='light',target=self.blinkThread)
             t.start()
-
-def lightTest():
-    c.lightFL.blink(2)
-    c.lightFR.blink(2)
 
 
 c = car()
 c.lightFL = c.light(21)
 c.lightFR = c.light(16)
-c.crash = c.crashSensor()
-while True:
-    c.crash.check()
+c.crashSensor.check()
+print 'wait for it'
 
-cam = c.camera()
-time.sleep(2)
-cam.picture()
+#cam = c.camera()
+#time.sleep(2)
+#cam.picture()
 #lightTest()
