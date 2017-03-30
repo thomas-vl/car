@@ -20,6 +20,22 @@ class car(object):
         def picture(self):
             self.camera.capture('image.jpg')
 
+    class crashSensor(object):
+        def __init__(self):
+            self.pin = 24
+            io.pinMode(self.pin,0)
+            io.pullUpDnControl(self.pin,2)
+
+        def check(self):
+            crash = io.digitalRead(self.pin)
+            if crash == 0:
+                crash()
+
+        def crash(self):
+            c.lightFL.blink(2)
+            c.lightFR.blink(2)
+
+
     class light(object):
         def __init__(self, pin):
             #make pins into output
@@ -65,13 +81,17 @@ class car(object):
             t.start()
 
 def lightTest():
-    c.lightFL = c.light(21)
-    c.lightFR = c.light(16)
     c.lightFL.blink(2)
     c.lightFR.blink(2)
 
 
-c = car();
+c = car()
+c.lightFL = c.light(21)
+c.lightFR = c.light(16)
+c.crash = c.crashSensor()
+while True:
+    c.crash.check()
+
 cam = c.camera()
 time.sleep(2)
 cam.picture()
