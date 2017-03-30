@@ -27,9 +27,9 @@ class car(object):
             io.pullUpDnControl(self.pin,2)
 
         def check(self):
-            crash = io.digitalRead(self.pin)
-            if crash == 0:
-                crash()
+            state = io.digitalRead(self.pin)
+            if state == 0:
+                self.crash()
 
         def crash(self):
             c.lightFL.blink(2)
