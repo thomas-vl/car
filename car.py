@@ -88,6 +88,16 @@ class car(object):
             t.start()
 
 
+def cameraTest():
+    c.cam.picture()
+
+def lightTest():
+    c.lightFL.on()
+    c.lightFR.on()
+    time.sleep(2)
+    c.lightFL.off()
+    c.lightFR.off()
+
 c = car()
 c.lightFL = c.light(21)
 c.lightFR = c.light(16)
