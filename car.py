@@ -1,12 +1,12 @@
 import time, os, sys, threading, picamera
-import wiringpi as io
+import wiringpi
 
 
 class car(object):
     def __init__(self):
         #initialise GPIO
         try:
-            io.wiringPiSetupGpio()
+            wiringpi.wiringPiSetupGpio()
         except:
             print ("GPIO issue", sys.exc_info()[0])
 
@@ -24,12 +24,12 @@ class car(object):
         def __init__(self):
             self.pin = 24
             self.alive = True
-            io.pinMode(self.pin,0)
-            io.pullUpDnControl(self.pin,2)
+            wiringpi.pinMode(self.pin,0)
+            wiringpi.pullUpDnControl(self.pin,2)
 
         def crashWorker(self):
             while self.alive:
-                state = io.digitalRead(self.pin)
+                state = wiringpi.digitalRead(self.pin)
                 if state == 0:
                     self.crash()
                     self.alive = False
@@ -46,21 +46,21 @@ class car(object):
     class light(object):
         def __init__(self, pin):
             #make pins into output
-            io.pinMode(pin,1)
+            wiringpi.pinMode(pin,1)
             #set output low
-            io.digitalWrite(pin,0)
+            wiringpi.digitalWrite(pin,0)
             #set variables
             self.status = 0
             self.pin = pin
 
         def on(self):
             #turn light on
-            io.digitalWrite(self.pin,1)
+            wiringpi.digitalWrite(self.pin,1)
             self.status = 1
 
         def off(self):
             #turn light off
-            io.digitalWrite(self.pin,0)
+            wiringpi.digitalWrite(self.pin,0)
             self.status = 0
 
         def blinkWorker(self,pause):
