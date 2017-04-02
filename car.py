@@ -9,8 +9,6 @@ class car(object):
             io.wiringPiSetupGpio()
         except:
             print "GPIO issue", sys.exc_info()[0]
-        crashS = self.crashSensor()
-        crashS.check()
 
     class camera(object):
         def __init__(self):
@@ -93,9 +91,13 @@ class car(object):
 c = car()
 c.lightFL = c.light(21)
 c.lightFR = c.light(16)
-print 'wait for it'
+c.crashS = c.crashSensor()
+c.cam = c.camera()
 
-#cam = c.camera()
-#time.sleep(2)
-#cam.picture()
-#lightTest()
+test = input('What do you want to test:(light,camera,crash)')
+if (test == "light"):
+    lightTest()
+if (test == "camera"):
+    cameraTest()
+if (test == "crash"):
+    c.crashS.check()
