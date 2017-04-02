@@ -8,7 +8,7 @@ class car(object):
         try:
             io.wiringPiSetupGpio()
         except:
-            print "GPIO issue", sys.exc_info()[0]
+            print ("GPIO issue", sys.exc_info()[0])
 
     class camera(object):
         def __init__(self):
