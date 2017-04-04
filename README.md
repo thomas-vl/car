@@ -1,8 +1,6 @@
 # Written in python3
 
 # Libraries
-Open CV: http://opencv.org/
-
 picamera: http://picamera.readthedocs.io/en/release-1.11/
 
 wiringpi: https://github.com/WiringPi/WiringPi-Python
@@ -17,3 +15,23 @@ Return to the root directory of the repository and:
 swig3.0 -python wiringpi.i
 sudo python3 setup.py install
 ```
+
+pip
+```
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+```
+
+google cloud SDK
+```
+export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)"
+echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+sudo apt-get update && sudo apt-get install google-cloud-sdk
+```
+
+google cloud vision
+```
+...
+```
+
