@@ -98,6 +98,9 @@ def lightTest():
     c.lightFL.off()
     c.lightFR.off()
 
+def crashTest():
+    c.crashS.check()
+
 c = car()
 c.lightFL = c.light(21)
 c.lightFR = c.light(16)
@@ -110,4 +113,4 @@ if (test == "light"):
 if (test == "camera"):
     cameraTest()
 if (test == "crash"):
-    c.crashS.check()
+    crashTest()
