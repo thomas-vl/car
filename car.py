@@ -102,8 +102,8 @@ def crashTest():
     c.crashS.check()
 
 c = car()
-c.lightFL = c.light(21)
-c.lightFR = c.light(16)
+c.lightFL = c.light(26)
+c.lightFR = c.light(20)
 c.crashS = c.crashSensor()
 c.cam = c.camera()
 
