@@ -22,7 +22,7 @@ class car(object):
 
     class crashSensor(object):
         def __init__(self):
-            self.pin = 24
+            self.pin = 16
             self.alive = True
             wiringpi.pinMode(self.pin,0)
             wiringpi.pullUpDnControl(self.pin,2)
