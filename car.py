@@ -107,6 +107,8 @@ c.lightFR = c.light(16)
 c.crashS = c.crashSensor()
 c.cam = c.camera()
 
+print ('test')
+
 test = input('What do you want to test:(light,camera,crash)')
 if (test == "light"):
     lightTest()
