@@ -13,7 +13,7 @@ class car(object):
     class camera(object):
         def __init__(self):
             #initialise camera
-            #self.camera = picamera.PiCamera()
+            self.camera = picamera.PiCamera()
             self.camera.resolution = (1024, 768)
             self.camera.start_preview()
 
