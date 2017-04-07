@@ -9,7 +9,7 @@ except:
 
 wiringpi.pinMode(4,1)
 wiringpi.pinMode(17,1)
-wiringpi.pinMode(18,2)
+wiringpi.pinMode(18,1)
 
 print("spinning!\n")
 wiringpi.pwmWrite(18,50)
