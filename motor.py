@@ -7,16 +7,16 @@ try:
 except:
     print ("GPIO issue", sys.exc_info()[0])
 
-wiringpi.pinMode(4,OUTPUT)
-wiringpi.pinMode(17,OUTPUT)
-wiringpi.pinMode(18,PWM_OUTPUT)
+wiringpi.pinMode(4,1)
+wiringpi.pinMode(17,1)
+wiringpi.pinMode(18,2)
 
 print("spinning!\n")
 wiringpi.pwmWrite(18,50)
-wiringpi.digitalWrite(4,HIGH)
-wiringpi.digitalWrite(17,LOW)
+wiringpi.digitalWrite(4,1)
+wiringpi.digitalWrite(17,0)
 
 time.sleep(3)
 print("stopping\n")
-wiringpi.digitalWrite(4,LOW)
-wiringpi.digitalWrite(17,LOW)
+wiringpi.digitalWrite(4,0)
+wiringpi.digitalWrite(17,0)
