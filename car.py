@@ -101,6 +101,23 @@ def lightTest():
 def crashTest():
     c.crashS.check()
 
+def motorTest():
+   wiringpi.pinMode(4,OUTPUT)
+   wiringpi.pinMode(17,OUTPUT)
+   wiringpi.pinMode(18,PWM_OUTPUT)
+
+   print("spinning!\n")
+   wiringpi.pwmWrite(18,50)
+   wiringpi.digitalWrite(4,HIGH)
+   wiringpi.digitalWrite(17,LOW)
+
+   time.sleep(3)
+   print("stopping\n")
+   wiringpi.digitalWrite(4,LOW)
+   wiringpi.digitalWrite(17,LOW)
+
+
+
 c = car()
 c.lightFL = c.light(26)
 c.lightFR = c.light(20)
@@ -114,3 +131,5 @@ if (test == "camera"):
     cameraTest()
 if (test == "crash"):
     crashTest()
+if (test == "motor"):
+    motorTest()
