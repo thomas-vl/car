@@ -2,6 +2,25 @@ import time, os, sys, threading, picamera
 import wiringpi
 
 
+class motorClass(object):
+    def __init__(self):
+        self.pwmPin = 18
+        self.directionPin = 17
+        self.enablePin = 4
+        self.speed = 20
+        wiringpi.pinMode(self.enablePin,1)
+        wiringpi.pinMode(self.directionPin,1)
+        wiringpi.pinMode(self.pwmPin,1)
+        wiringpi.softPwmCreate(self.pwmPin,0,100)
+
+    def forward(self):
+        wiringpi.softPwmWrite(self.pwmPin,self.speed)
+        wiringpi.digitalWrite(self.enablePin,1)
+        wiringpi.digitalWrite(self.directionPin,1)
+
+    def stop(self):
+        wiringpi.digitalWrite(self.enablePin,0)
+
 
 class cameraClass(object):
     def __init__(self):
@@ -95,26 +114,16 @@ def crashTest():
     crashS.check()
 
 def motorTest():
-   wiringpi.pinMode(4,OUTPUT)
-   wiringpi.pinMode(17,OUTPUT)
-   wiringpi.pinMode(18,PWM_OUTPUT)
-
-   print("spinning!\n")
-   wiringpi.pwmWrite(18,50)
-   wiringpi.digitalWrite(4,HIGH)
-   wiringpi.digitalWrite(17,HIGH)
-
-   time.sleep(3)
-   print("stopping\n")
-   wiringpi.digitalWrite(4,LOW)
-   wiringpi.digitalWrite(17,LOW)
-
+    motor.forward()
+    time.sleep(2)
+    motor.stop()
 
 
 lightFL = light(26)
 lightFR = light(20)
 crashS = crashSensor()
 camera = cameraClass()
+motor = motorClass()
 
 test = input('What do you want to test:(light,camera,crash)')
 if (test == "light"):
