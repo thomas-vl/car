@@ -27,7 +27,7 @@ class steerClass(object):
     def __init__(self):
         self.enablePin = 25
         self.leftPin = 24
-        self.rightPin = 23 
+        self.rightPin = 23
         wiringpi.pinMode(self.enablePin,1)
         wiringpi.pinMode(self.leftPin,1)
         wiringpi.pinMode(self.rightPin,1)
@@ -137,7 +137,7 @@ def motorTest():
 
 def steerTest():
     steer.left()
-    time.sleep(2)
+    time.sleep(0.1)
     steer.stop()
 
 try:
