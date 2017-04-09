@@ -23,6 +23,23 @@ class motorClass(object):
         wiringpi.digitalWrite(self.backwardPin,0)
 
 
+class steerClass(object):
+    def __init__(self):
+        self.enablePin = 19
+        self.leftPin = 21 #or 23
+        self.rightPin = 23 #or 21
+        wiringpi.pinMode(self.enablePin,1)
+        wiringpi.pinMode(self.leftPin,1)
+        wiringpi.pinMode(self.rightPin,1)
+
+    def left(self):
+        wiringpi.digitalWrite(self.enablePin,1)
+        wiringpi.digitalWrite(self.leftPin,1)
+        wiringpi.digitalWrite(self.rightPin,0)
+
+    def stop(self):
+        wiringpi.digitalWrite(self.enablePin,0)
+
 class cameraClass(object):
     def __init__(self):
         #initialise camera
@@ -54,7 +71,6 @@ class crashSensor(object):
     def crash(self):
         c.lightFL.blink(2)
         c.lightFR.blink(2)
-
 
 class light(object):
     def __init__(self, pin):
@@ -119,6 +135,10 @@ def motorTest():
     time.sleep(2)
     motor.stop()
 
+def steerTest():
+    steer.left()
+    time.sleep(2)
+    steer.stop()
 
 try:
     wiringpi.wiringPiSetupGpio()
@@ -130,6 +150,7 @@ lightFR = light(20)
 crashS = crashSensor()
 camera = cameraClass()
 motor = motorClass()
+steer = steerClass()
 
 test = input('What do you want to test:(light,camera,crash)')
 if (test == "light"):
@@ -140,3 +161,5 @@ if (test == "crash"):
     crashTest()
 if (test == "motor"):
     motorTest()
+if (test == "steer"):
+    steerTest()
