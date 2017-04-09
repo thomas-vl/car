@@ -50,7 +50,7 @@ class steerClass(object):
                 print("left")
                 self.left()
                 self.status = direction
-            else if (direction > self.status):
+            elif (direction > self.status):
                 print("right")
                 self.right()
                 self.status = self.direction
