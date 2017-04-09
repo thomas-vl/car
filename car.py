@@ -43,7 +43,8 @@ class steerClass(object):
         wiringpi.pinMode(self.rightPin,1)
 
     def direction(self,direction):
-        print (direction + " " + self.status)
+        print ("direction is ", direction)
+        print ("status is ", self.status)
         if (direction != self.status):
             if (direction << self.status):
                 print("left")
