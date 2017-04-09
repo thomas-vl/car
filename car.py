@@ -18,6 +18,15 @@ class motorClass(object):
         wiringpi.digitalWrite(self.forwardPin,1)
         wiringpi.digitalWrite(self.backwardPin,0)
 
+    def backward(self):
+        wiringpi.softPwmWrite(self.pwmPin,self.speed)
+        wiringpi.digitalWrite(self.forwardPin,0)
+        wiringpi.digitalWrite(self.backwardPin,1)
+
+    def setSpeed(self, speedInt):
+        wiringpi.softPwmWrite(self.pwmPin,speedInt)
+        self.speed = speedInt
+
     def stop(self):
         wiringpi.digitalWrite(self.forwardPin,0)
         wiringpi.digitalWrite(self.backwardPin,0)
@@ -131,8 +140,13 @@ def crashTest():
     crashS.check()
 
 def motorTest():
+    motor.backward()
+    time.sleep(2)
+    motor.setSpeed(50)
     motor.forward()
     time.sleep(2)
+    motor.backward()
+    time.sleep(1)
     motor.stop()
 
 def steerTest():
