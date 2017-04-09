@@ -42,31 +42,18 @@ class steerClass(object):
         wiringpi.pinMode(self.leftPin,1)
         wiringpi.pinMode(self.rightPin,1)
 
-    def direction(self,direction):
-        print ("direction is ", direction)
-        print ("status is ", self.status)
-        if (direction != self.status):
-            if (direction < self.status):
-                print("left")
-                self.left()
-                self.status = direction
-            elif (direction > self.status):
-                print("right")
-                self.right()
-                self.status = self.direction
-
     def left(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
-        time.sleep(0.2)
+        time.sleep(0.1)
         wiringpi.digitalWrite(self.enablePin,0)
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
-        time.sleep(0.2)
+        time.sleep(0.1)
         wiringpi.digitalWrite(self.enablePin,0)
 
 class cameraClass(object):
@@ -172,9 +159,9 @@ def motorTest():
 def steerTest():
     #steer.direction(0)
     steer.left()
-    time.sleep(3)
+    time.sleep(1)
     steer.left()
-    time.sleep(3)
+    time.sleep(1)
     steer.right()
     #steer.direction(1)
 
