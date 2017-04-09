@@ -166,6 +166,11 @@ def motorTest():
     motor.stop()
 
 def steerTest():
+    steer.left()
+    steer.right()
+    
+    lightTest()
+
     steer.direction(0)
     time.sleep(2)
     steer.direction(1)
