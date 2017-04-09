@@ -8,7 +8,7 @@ class motorClass(object):
         self.forwardPin = 17
         self.backwardPin = 4
         self.speed = 20
-        wiringpi.pinMode(self.fowardPin,1)
+        wiringpi.pinMode(self.forwardPin,1)
         wiringpi.pinMode(self.backwardPin,1)
         wiringpi.pinMode(self.pwmPin,1)
         wiringpi.softPwmCreate(self.pwmPin,0,100)
