@@ -5,21 +5,22 @@ import wiringpi
 class motorClass(object):
     def __init__(self):
         self.pwmPin = 18
-        self.directionPin = 17
-        self.enablePin = 4
+        self.forwardPin = 17
+        self.backwardPin = 4
         self.speed = 20
-        wiringpi.pinMode(self.enablePin,1)
-        wiringpi.pinMode(self.directionPin,1)
+        wiringpi.pinMode(self.fowardPin,1)
+        wiringpi.pinMode(self.backwardPin,1)
         wiringpi.pinMode(self.pwmPin,1)
         wiringpi.softPwmCreate(self.pwmPin,0,100)
 
     def forward(self):
         wiringpi.softPwmWrite(self.pwmPin,self.speed)
-        wiringpi.digitalWrite(self.enablePin,1)
-        wiringpi.digitalWrite(self.directionPin,1)
+        wiringpi.digitalWrite(self.forwardPin,1)
+        wiringpi.digitalWrite(self.backwardPin,0)
 
     def stop(self):
-        wiringpi.digitalWrite(self.enablePin,0)
+        wiringpi.digitalWrite(self.forwardPin,0)
+        wiringpi.digitalWrite(self.backwardPin,0)
 
 
 class cameraClass(object):
