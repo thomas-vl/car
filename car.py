@@ -120,6 +120,11 @@ def motorTest():
     motor.stop()
 
 
+try:
+    wiringpi.wiringPiSetupGpio()
+except:
+    print ("GPIO issue", sys.exc_info()[0])
+
 lightFL = light(26)
 lightFR = light(20)
 crashS = crashSensor()
