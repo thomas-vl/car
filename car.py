@@ -25,9 +25,9 @@ class motorClass(object):
 
 class steerClass(object):
     def __init__(self):
-        self.enablePin = 19 #23
-        self.leftPin = 23 #or 21
-        self.rightPin = 21 #or 19
+        self.enablePin = 21 #23 19
+        self.leftPin = 19 #or 21
+        self.rightPin = 23 #or 19
         wiringpi.pinMode(self.enablePin,1)
         wiringpi.pinMode(self.leftPin,1)
         wiringpi.pinMode(self.rightPin,1)
