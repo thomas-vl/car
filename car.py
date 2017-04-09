@@ -34,7 +34,7 @@ class motorClass(object):
 
 class steerClass(object):
     def __init__(self):
-        self.status = 0
+        self.status = 1
         self.enablePin = 25
         self.leftPin = 24
         self.rightPin = 23
@@ -55,14 +55,14 @@ class steerClass(object):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
-        time.sleep(0.2)
+        time.sleep(0.3)
         wiringpi.digitalWrite(self.enablePin,0)
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
-        time.sleep(0.2)
+        time.sleep(0.3)
         wiringpi.digitalWrite(self.enablePin,0)
 
 class cameraClass(object):
@@ -166,9 +166,9 @@ def motorTest():
     motor.stop()
 
 def steerTest():
-    steer.direction(-1)
-    time.sleep(2)
     steer.direction(0)
+    time.sleep(2)
+    steer.direction(1)
 
 try:
     wiringpi.wiringPiSetupGpio()
