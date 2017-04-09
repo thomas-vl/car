@@ -170,9 +170,13 @@ def motorTest():
     motor.stop()
 
 def steerTest():
-    steer.direction(0)
-    time.sleep(2)
-    steer.direction(1)
+    #steer.direction(0)
+    steer.left()
+    time.sleep(3)
+    steer.left()
+    time.sleep(3)
+    steer.right()
+    #steer.direction(1)
 
 try:
     wiringpi.wiringPiSetupGpio()
