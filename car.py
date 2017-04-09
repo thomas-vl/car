@@ -50,7 +50,7 @@ class steerClass(object):
                 print("left")
                 self.left()
                 self.status = direction
-            if (direction > self.status):
+            else if (direction > self.status):
                 print("right")
                 self.right()
                 self.status = self.direction
@@ -64,8 +64,8 @@ class steerClass(object):
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
-        wiringpi.digitalWrite(self.leftPin,0)
-        wiringpi.digitalWrite(self.rightPin,1)
+        wiringpi.digitalWrite(self.leftPin,1)
+        wiringpi.digitalWrite(self.rightPin,0)
         time.sleep(0.2)
         wiringpi.digitalWrite(self.enablePin,0)
 
