@@ -158,11 +158,11 @@ def motorTest():
 
 def steerTest():
     #steer.direction(0)
-    steer.left()
-    time.sleep(1)
-    steer.left()
+    steer.right()
     time.sleep(1)
     steer.right()
+    time.sleep(1)
+    steer.left()
     #steer.direction(1)
 
 try:
