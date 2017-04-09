@@ -34,8 +34,8 @@ class steerClass(object):
 
     def left(self):
         wiringpi.digitalWrite(self.enablePin,1)
-        wiringpi.digitalWrite(self.leftPin,1)
-        wiringpi.digitalWrite(self.rightPin,0)
+        wiringpi.digitalWrite(self.leftPin,0)
+        wiringpi.digitalWrite(self.rightPin,1)
 
     def stop(self):
         wiringpi.digitalWrite(self.enablePin,0)
