@@ -46,14 +46,14 @@ class steerClass(object):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
-        time.sleep(0.1)
+        time.sleep(0.2)
         wiringpi.digitalWrite(self.enablePin,0)
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
-        time.sleep(0.1)
+        time.sleep(0.2)
         wiringpi.digitalWrite(self.enablePin,0)
 
 class cameraClass(object):
@@ -157,12 +157,13 @@ def motorTest():
     motor.stop()
 
 def steerTest():
-    #steer.direction(0)
-    steer.right()
-    time.sleep(1)
-    steer.right()
-    time.sleep(1)
+    motor.setSpeed(50)
+    motor.forward()
     steer.left()
+    time.sleep(2)
+    steer.right()
+    time.sleep(2)
+    motor.stop()
     #steer.direction(1)
 
 try:
