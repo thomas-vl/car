@@ -7,7 +7,7 @@ class motorClass(object):
         self.pwmPin = 18
         self.forwardPin = 17
         self.backwardPin = 4
-        self.speed = 20
+        self.speed = 50
         wiringpi.pinMode(self.forwardPin,1)
         wiringpi.pinMode(self.backwardPin,1)
         wiringpi.pinMode(self.pwmPin,1)
@@ -46,14 +46,13 @@ class steerClass(object):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
-        time.sleep(0.2)
-        wiringpi.digitalWrite(self.enablePin,0)
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
-        time.sleep(0.2)
+
+    def streight(self):
         wiringpi.digitalWrite(self.enablePin,0)
 
 class cameraClass(object):
@@ -147,12 +146,12 @@ def crashTest():
     crashS.check()
 
 def motorTest():
+    motor.foward()
+    time.sleep(1)
     motor.backward()
-    time.sleep(2)
-    motor.setSpeed(50)
+    motor.sleep(1)
     motor.forward()
-    time.sleep(2)
-    motor.backward()
+    motor.right()
     time.sleep(1)
     motor.stop()
 
