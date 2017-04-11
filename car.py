@@ -146,12 +146,12 @@ def crashTest():
     crashS.check()
 
 def motorTest():
-    motor.foward()
+    motor.forward()
     time.sleep(1)
     motor.backward()
     motor.sleep(1)
     motor.forward()
-    motor.right()
+    steer.right()
     time.sleep(1)
     motor.stop()
 
