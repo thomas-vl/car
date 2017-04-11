@@ -149,7 +149,7 @@ def motorTest():
     motor.forward()
     time.sleep(1)
     motor.backward()
-    motor.sleep(1)
+    time.sleep(1)
     motor.forward()
     steer.right()
     time.sleep(1)
