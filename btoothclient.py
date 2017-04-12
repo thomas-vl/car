@@ -32,10 +32,11 @@ print("connecting to \"%s\" on %s" % (name, host))
 sock=BluetoothSocket( RFCOMM )
 sock.connect((host, port))
 
-print("connected.  type stuff")
+print("connected.")
 while True:
-    data = input()
-    if len(data) == 0: break
-    sock.send(data)
+    data = client_sock.recv(1024)
+    if len(data) > 0:
+        print(data)
+        break
 
 sock.close()
