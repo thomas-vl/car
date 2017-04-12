@@ -1,4 +1,4 @@
-from bluetooth import *
+import bluetooth
 import sys
 
 nearby_devices = bluetooth.discover_devices(lookup_names=True)
