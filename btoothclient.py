@@ -37,6 +37,5 @@ while True:
     data = sock.recv(1024)
     if len(data) > 0:
         print(data)
-        break
 
 sock.close()
