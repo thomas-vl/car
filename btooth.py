@@ -1,46 +1,65 @@
-
 from bluetooth import *
 import sys
-
-if sys.version < '3':
-    input = raw_input
-
-addr = None
+import bluetooth
 
 if len(sys.argv) < 2:
-    print("no device specified.  Searching all nearby bluetooth devices for")
-    print("the SampleServer service")
+    print("usage: sdp-browse <addr>")
+    print("   addr can be a bluetooth address, \"localhost\", or \"all\"")
+    sys.exit(2)
+
+target = sys.argv[1]
+if target == "all": target = None
+
+services = bluetooth.find_service(address=target)
+
+if len(services) > 0:
+    print("found %d services on %s" % (len(services), sys.argv[1]))
+    print("")
 else:
-    addr = sys.argv[1]
-    print("Searching for SampleServer on %s" % addr)
+    print("no services found")
 
-# search for the SampleServer service
-uuid = "00001101-0000-1000-8000-00805F9B34FB"
-service_matches = find_service( uuid = uuid, address = addr )
+for svc in services:
+    print("Service Name: %s"    % svc["name"])
+    print("    Host:        %s" % svc["host"])
+    print("    Description: %s" % svc["description"])
+    print("    Provided By: %s" % svc["provider"])
+    print("    Protocol:    %s" % svc["protocol"])
+    print("    channel/PSM: %s" % svc["port"])
+    print("    svc classes: %s "% svc["service-classes"])
+    print("    profiles:    %s "% svc["profiles"])
+    print("    service id:  %s "% svc["service-id"])
+    print("")
 
-if len(service_matches) == 0:
-    print("couldn't find the SampleServer service =(")
-    sys.exit(0)
+server_sock=BluetoothSocket( RFCOMM )
+server_sock.bind(("",PORT_ANY))
+server_sock.listen(1)
 
-first_match = service_matches[0]
-port = first_match["port"]
-name = first_match["name"]
-host = first_match["host"]
+port = server_sock.getsockname()[1]
 
-print("connecting to \"%s\" on %s" % (name, host))
+uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 
-# Create the client socket
-sock=BluetoothSocket( RFCOMM )
-sock.connect((host, port))
+advertise_service( server_sock, "SampleServer",
+                   service_id = uuid,
+                   service_classes = [ uuid, SERIAL_PORT_CLASS ],
+                   profiles = [ SERIAL_PORT_PROFILE ],
+#                   protocols = [ OBEX_UUID ]
+                    )
 
-print("connected.")
+print("Waiting for connection on RFCOMM channel %d" % port)
+
+client_sock, client_info = server_sock.accept()
+print("Accepted connection from ", client_info)
+
 try:
     while True:
-        data = sock.recv(1024)
+        data = client_sock.recv(1024)
         if len(data) == 0: break
         print("received [%s]" % data)
 except IOError:
     pass
 
 print("disconnected")
-sock.close()
+
+client_sock.close()
+server_sock.close()
+print("all done")
