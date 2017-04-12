@@ -53,7 +53,7 @@ class steerClass(object):
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
 
-    def streight(self):
+    def straight(self):
         wiringpi.digitalWrite(self.enablePin,0)
 
 class cameraClass(object):
@@ -154,7 +154,7 @@ def motorTest():
     motor.forward()
     steer.right()
     time.sleep(1)
-    steer.streight()
+    steer.straight()
     time.sleep(1)
     motor.stop()
 
@@ -199,6 +199,13 @@ def btTest():
             motor.forward()
         if data == b'idle':
             motor.stop()
+        if data == b'left':
+            steer.left()
+        if data == b'right':
+            steer.right()
+        if data == b'straight':
+            steer.straight()
+
 
 try:
     wiringpi.wiringPiSetupGpio()
