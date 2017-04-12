@@ -9,3 +9,22 @@ with tf.Session(graph=my_graph) as sess:
     op = tf.add(x,y)
     result = sess.run(fetches=op)
     print(result)
+
+# Network Parameters
+n_hidden_1 = 10        # 1st layer number of features
+n_hidden_2 = 5         # 2nd layer number of features
+n_input = total_words  # Words in vocab
+n_classes = 3          # Categories: graphics, space and baseball
+
+def multilayer_perceptron(input_tensor, weights, biases):
+    layer_1_multiplication = tf.matmul(input_tensor, weights['h1'])
+    layer_1_addition = tf.add(layer_1_multiplication, biases['b1'])
+    layer_1_activation = tf.nn.relu(layer_1_addition)
+#    Hidden layer with RELU activation
+    layer_2_multiplication = tf.matmul(layer_1_activation, weights['h2'])
+    layer_2_addition = tf.add(layer_2_multiplication, biases['b2'])
+    layer_2_activation = tf.nn.relu(layer_2_addition)
+    # Output layer with linear activation
+    out_layer_multiplication = tf.matmul(layer_2_activation, weights['out'])
+    out_layer_addition = out_layer_multiplication + biases['out']
+    return out_layer_addition
