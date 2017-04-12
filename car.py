@@ -209,6 +209,7 @@ def btTest():
             steer.right()
         if data == b'straight':
             steer.straight()
+            
 
 
 try:
