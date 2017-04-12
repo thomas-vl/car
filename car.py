@@ -195,9 +195,9 @@ def btTest():
         data = sock.recv(1024)
         if len(data) > 0:
             print(data)
-        if data == "b'forward'":
+        if data == b'forward':
             motor.forward()
-        if data == "b'idle'":
+        if data == b'idle':
             motor.stop()
 
 try:
