@@ -1,49 +1,35 @@
 from bluetooth import *
-import bluetooth
-import sys
 
-nearby_devices = bluetooth.discover_devices(lookup_names=True)
-print("found %d devices" % len(nearby_devices))
+server_sock=BluetoothSocket( RFCOMM )
+server_sock.bind(("",PORT_ANY))
+server_sock.listen(1)
 
-for addr, name in nearby_devices:
-    print("  %s - %s" % (addr, name))
+port = server_sock.getsockname()[1]
 
-
-if sys.version < '3':
-    input = raw_input
-
-addr = "9C:65:B0:78:51:C4"
-
-if len(sys.argv) < 2:
-    print("no device specified.  Searching all nearby bluetooth devices for")
-    print("the SampleServer service")
-else:
-    addr = sys.argv[1]
-    print("Searching for SampleServer on %s" % addr)
-
-# search for the SampleServer service
 uuid = "00001101-0000-1000-8000-00805F9B34FB"
-service_matches = find_service( uuid = uuid, address = addr )
 
-if len(service_matches) == 0:
-    print("couldn't find the SampleServer service =(")
-    sys.exit(0)
+advertise_service( server_sock, "SampleServer",
+                   service_id = uuid,
+                   service_classes = [ uuid, SERIAL_PORT_CLASS ],
+                   profiles = [ SERIAL_PORT_PROFILE ],
+#                   protocols = [ OBEX_UUID ]
+                    )
 
-first_match = service_matches[0]
-port = first_match["port"]
-name = first_match["name"]
-host = first_match["host"]
+print("Waiting for connection on RFCOMM channel %d" % port)
 
-print("connecting to \"%s\" on %s" % (name, host))
+client_sock, client_info = server_sock.accept()
+print("Accepted connection from ", client_info)
 
-# Create the client socket
-sock=BluetoothSocket( RFCOMM )
-sock.connect((host, port))
+try:
+    while True:
+        data = client_sock.recv(1024)
+        if len(data) == 0: break
+        print("received [%s]" % data)
+except IOError:
+    pass
 
-print("connected.  type stuff")
-while True:
-    data = input()
-    if len(data) == 0: break
-    sock.send(data)
+print("disconnected")
 
-sock.close()
+client_sock.close()
+server_sock.close()
+print("all done")
