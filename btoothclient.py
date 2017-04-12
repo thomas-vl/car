@@ -34,7 +34,7 @@ sock.connect((host, port))
 
 print("connected.")
 while True:
-    data = client_sock.recv(1024)
+    data = sock.recv(1024)
     if len(data) > 0:
         print(data)
         break
