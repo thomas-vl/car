@@ -136,7 +136,6 @@ class btClass(object):
     def __init__(self):
         self.addr = "9C:65:B0:78:51:C4"
         self.uuid = "00001101-0000-1000-8000-00805F9B34FB"
-
         t = threading.Thread(name='bt',target=self.connect)
         t.start()
 
@@ -144,7 +143,6 @@ class btClass(object):
         service_matches = ""
         while len(service_matches) == 0:
             service_matches = find_service( uuid = self.uuid, address = self.addr )
-            print ("trying to connect")
             time.sleep(10)
 
         first_match = service_matches[0]
@@ -152,19 +150,14 @@ class btClass(object):
         name = first_match["name"]
         host = first_match["host"]
 
-        print("connecting to \"%s\" on %s" % (name, host))
         self.sock=BluetoothSocket( RFCOMM )
         self.sock.connect((host, port))
-        print("connected.")
-
         self.drive()
 
     def drive(self):
         try:
             while True:
                 data = self.sock.recv(1024)
-                if len(data) > 0:
-                    print(data)
                 if data == b'forward':
                     motor.forward()
                     motor.setSpeed(75)
@@ -180,7 +173,6 @@ class btClass(object):
                 if data == b'straight':
                     steer.straight()
         except:
-            print("connection reset restart")
             self.connect()
 
 
