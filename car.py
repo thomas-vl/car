@@ -142,7 +142,7 @@ class btClass(object):
 
     def connect(self):
         service_matches = 0
-        while len(service_matches) == 0
+        while len(service_matches) == 0:
             service_matches = find_service( uuid = self.uuid, address = self.addr )
             print ("trying to connect")
             time.sleep(10)
@@ -182,7 +182,7 @@ class btClass(object):
         except:
             print("connection reset restart")
             self.connect()
-            
+
 
 def cameraTest():
     camera.picture()
