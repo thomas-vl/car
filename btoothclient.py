@@ -4,7 +4,7 @@ import sys
 if sys.version < '3':
     input = raw_input
 
-addr = None
+addr = "9C:65:B0:78:51:C4"
 
 if len(sys.argv) < 2:
     print("no device specified.  Searching all nearby bluetooth devices for")
