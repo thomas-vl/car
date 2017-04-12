@@ -141,7 +141,7 @@ class btClass(object):
         t.start()
 
     def connect(self):
-        service_matches = 0
+        service_matches = ""
         while len(service_matches) == 0:
             service_matches = find_service( uuid = self.uuid, address = self.addr )
             print ("trying to connect")
