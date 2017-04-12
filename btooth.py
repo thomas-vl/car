@@ -1,3 +1,4 @@
+from bluetooth import *
 import bluetooth
 import sys
 
