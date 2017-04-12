@@ -197,9 +197,9 @@ def btTest():
             print(data)
         if data == b'forward':
             motor.forward()
-            motor.setSpeed(50)
+            motor.setSpeed(75)
         if data == b'backward':
-            motor.setSpeed(30)
+            motor.setSpeed(50)
             motor.backward()
         if data == b'idle':
             motor.stop()
@@ -209,7 +209,7 @@ def btTest():
             steer.right()
         if data == b'straight':
             steer.straight()
-            
+
 
 
 try:
