@@ -160,25 +160,29 @@ class btClass(object):
         self.drive()
 
     def drive(self):
-        while True:
-            data = sock.recv(1024)
-            if len(data) > 0:
-                print(data)
-            if data == b'forward':
-                motor.forward()
-                motor.setSpeed(75)
-            if data == b'backward':
-                motor.setSpeed(50)
-                motor.backward()
-            if data == b'idle':
-                motor.stop()
-            if data == b'left':
-                steer.left()
-            if data == b'right':
-                steer.right()
-            if data == b'straight':
-                steer.straight()
-
+        try:
+            while True:
+                data = self.sock.recv(1024)
+                if len(data) > 0:
+                    print(data)
+                if data == b'forward':
+                    motor.forward()
+                    motor.setSpeed(75)
+                if data == b'backward':
+                    motor.setSpeed(50)
+                    motor.backward()
+                if data == b'idle':
+                    motor.stop()
+                if data == b'left':
+                    steer.left()
+                if data == b'right':
+                    steer.right()
+                if data == b'straight':
+                    steer.straight()
+        except:
+            print("connection reset restart")
+            self.connect()
+            
 
 def cameraTest():
     camera.picture()
