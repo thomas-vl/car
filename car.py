@@ -197,6 +197,10 @@ def btTest():
             print(data)
         if data == b'forward':
             motor.forward()
+            motor.setSpeed(50)
+        if data == b'backward':
+            motor.setSpeed(30)
+            motor.backward()
         if data == b'idle':
             motor.stop()
         if data == b'left':
