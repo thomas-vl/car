@@ -32,7 +32,6 @@ class motorClass(object):
         wiringpi.digitalWrite(self.forwardPin,0)
         wiringpi.digitalWrite(self.backwardPin,0)
 
-
 class steerClass(object):
     def __init__(self):
         self.status = 1
