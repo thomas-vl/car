@@ -1,5 +1,5 @@
 from bluetooth import *
-import time, os, sys, threading, picamera, git
+import time, os, sys, threading, picamera, git, subprocess
 import wiringpi
 
 
@@ -173,7 +173,10 @@ class btClass(object):
                 if data == b'straight':
                     steer.straight()
                 if data == b'reboot':
-                    os.system('reboot')
+                    command = "/sbin/shutdown -r now"
+                    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+                    output = process.communicate()[0]
+                    print output
         except:
             self.connect()
 
