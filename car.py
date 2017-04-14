@@ -176,7 +176,7 @@ class btClass(object):
                     command = "/sbin/shutdown -r now"
                     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
                     output = process.communicate()[0]
-                    print output
+                    print (output)
         except:
             self.connect()
 
