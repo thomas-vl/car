@@ -27,4 +27,12 @@ sess.run(init)
 
 for i in range(1):
     print("test")
-    
+    #Load correct answers?
+    batch_X, batch_Y = ??
+    train_data={X: batch_X, Y_: batch_Y}
+
+    sess.run(train_step, feed_dict=train_data)
+
+    a,c = sess.run([accuracy, cross_entropy], feed=train_data)
+
+    test_data={X:}

@@ -1,5 +1,5 @@
 from bluetooth import *
-import time, os, sys, threading, picamera
+import time, os, sys, threading, picamera, git
 import wiringpi
 
 
@@ -201,6 +201,8 @@ def motorTest():
     time.sleep(1)
     motor.stop()
 
+g = git.cmd.Git('~/car/')
+print(g.pull())
 
 try:
     wiringpi.wiringPiSetupGpio()
