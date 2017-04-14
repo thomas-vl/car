@@ -1,30 +1,30 @@
 import tensorflow as tf
 
-my_graph = tf.Graph()
+X = tf.placeholder(tf.float32, [None, 640, 480, 3])
+W = tf.Variable(tf.zeros([921600,4]))
+b = tf.Variable(tf.zeros([4]))
+#init = tf.initialize_all_variables()
+init = tf.global_variables_initializer()
 
-with tf.Session(graph=my_graph) as sess:
-    x = tf.constant([1,3,6])
-    y = tf.constant([1,1,1])
+#model
+Y=tf.nn.softmax(tf.matmul(tf.reshape(X,[-1,921600]), W) + b)
 
-    op = tf.add(x,y)
-    result = sess.run(fetches=op)
-    print(result)
+#placeholder for correct answers
+Y_ = tf.placeholder(tf.float32, [None, 4])
 
-# Network Parameters
-n_hidden_1 = 10        # 1st layer number of features
-n_hidden_2 = 5         # 2nd layer number of features
-n_input = total_words  # Words in vocab
-n_classes = 3          # Categories: graphics, space and baseball
+#loss fucntion
+cross_entropy = -tf.reduce_sum(Y_ * tf.log(Y))
 
-def multilayer_perceptron(input_tensor, weights, biases):
-    layer_1_multiplication = tf.matmul(input_tensor, weights['h1'])
-    layer_1_addition = tf.add(layer_1_multiplication, biases['b1'])
-    layer_1_activation = tf.nn.relu(layer_1_addition)
-#    Hidden layer with RELU activation
-    layer_2_multiplication = tf.matmul(layer_1_activation, weights['h2'])
-    layer_2_addition = tf.add(layer_2_multiplication, biases['b2'])
-    layer_2_activation = tf.nn.relu(layer_2_addition)
-    # Output layer with linear activation
-    out_layer_multiplication = tf.matmul(layer_2_activation, weights['out'])
-    out_layer_addition = out_layer_multiplication + biases['out']
-    return out_layer_addition
+# % of correct answoers in
+is_correct = tf.equal(tf.argmax(Y,1),tf.argmax(Y_,1))
+accuracy = tf.reduce_mean(tf.cast(is_correct, tf.float32))
+
+optimizer = tf.train.GradientDescentOptimizer(0.003)
+train_step = optimizer.minimize(cross_entropy)
+
+sess = tf.Session()
+sess.run(init)
+
+for i in range(1):
+    print("test")
+    
