@@ -35,3 +35,4 @@ google cloud vision
 ...
 ```
 
+pip install GitPython
