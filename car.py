@@ -160,9 +160,9 @@ class btClass(object):
                 data = self.sock.recv(1024)
                 if data == b'forward':
                     motor.forward()
-                    motor.setSpeed(75)
+                    motor.setSpeed(80)
                 if data == b'backward':
-                    motor.setSpeed(50)
+                    motor.setSpeed(70)
                     motor.backward()
                 if data == b'idle':
                     motor.stop()
@@ -172,6 +172,8 @@ class btClass(object):
                     steer.right()
                 if data == b'straight':
                     steer.straight()
+                if data == b'reboot':
+                    os.system('reboot')
         except:
             self.connect()
 
