@@ -201,8 +201,8 @@ def motorTest():
     time.sleep(1)
     motor.stop()
 
-g = git.cmd.Git()
-print(g.pull())
+#g = git.cmd.Git()
+#print(g.pull())
 
 try:
     wiringpi.wiringPiSetupGpio()
