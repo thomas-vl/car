@@ -201,7 +201,7 @@ def motorTest():
     time.sleep(1)
     motor.stop()
 
-g = git.cmd.Git('~/car/')
+g = git.cmd.Git()
 print(g.pull())
 
 try:
