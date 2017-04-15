@@ -82,18 +82,17 @@ class cameraClass(object):
 
     def worker(self):
         while True:
-            if steer.getStatus() == "" && motor.getStatus() != ""
+            if steer.getStatus() == "" and motor.getStatus() != "":
                 self.picture()
             time.sleep(1)
 
     def picture(self):
         folder = motor.getStatus()+steer.getStatus()
         print("folder:" + folder)
-        if folder != "":
-            uid_str = uuid.uuid1().urn[9:]
-            filename = folder+'/'+uid_str+'.jpg'
-            os.makedirs(os.path.dirname(filename), exist_ok=True)
-            self.camera.capture(filename)
+        uid_str = uuid.uuid1().urn[9:]
+        filename = folder+'/'+uid_str+'.jpg'
+        os.makedirs(os.path.dirname(filename), exist_ok=True)
+        self.camera.capture(filename)
 
 class crashSensor(object):
     def __init__(self):
