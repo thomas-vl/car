@@ -1,5 +1,5 @@
 from bluetooth import *
-import time, os, sys, threading, picamera, git, subprocess
+import time, os, sys, threading, picamera, git, subprocess, uuid
 import wiringpi
 
 
@@ -18,11 +18,13 @@ class motorClass(object):
         wiringpi.softPwmWrite(self.pwmPin,self.speed)
         wiringpi.digitalWrite(self.forwardPin,1)
         wiringpi.digitalWrite(self.backwardPin,0)
+        self.status = "f"
 
     def backward(self):
         wiringpi.softPwmWrite(self.pwmPin,self.speed)
         wiringpi.digitalWrite(self.forwardPin,0)
         wiringpi.digitalWrite(self.backwardPin,1)
+        self.status = "b"
 
     def setSpeed(self, speedInt):
         wiringpi.softPwmWrite(self.pwmPin,speedInt)
@@ -31,6 +33,7 @@ class motorClass(object):
     def stop(self):
         wiringpi.digitalWrite(self.forwardPin,0)
         wiringpi.digitalWrite(self.backwardPin,0)
+        self.status = ""
 
 class steerClass(object):
     def __init__(self):
@@ -46,14 +49,17 @@ class steerClass(object):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
+        self.status = "l"
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
+        self.status = "r"
 
     def straight(self):
         wiringpi.digitalWrite(self.enablePin,0)
+        self.status = ""
 
 class cameraClass(object):
     def __init__(self):
@@ -62,9 +68,17 @@ class cameraClass(object):
         self.camera.rotation = 180
         self.camera.resolution = (640, 480)
         self.camera.start_preview()
+        t = threading.Thread(name='camera',target=camera.worker())
+        t.start()
+
+    def worker(self):
+        self.picture()
+        time.sleep(1)
 
     def picture(self):
-        self.camera.capture('image.jpg')
+        folder = motor.getStatus()+steer.getStatus()
+        if folder != "":
+            self.camera.capture(folder+'/'+uuid.uuid1()+'.jpg')
 
 class crashSensor(object):
     def __init__(self):
@@ -155,6 +169,8 @@ class btClass(object):
         self.drive()
 
     def drive(self):
+        t = threading.Thread(name='camera',target=camera.worker())
+        t.start()
         try:
             while True:
                 data = self.sock.recv(1024)
@@ -176,7 +192,10 @@ class btClass(object):
                     command = "/sbin/shutdown -r now"
                     process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
                     output = process.communicate()[0]
-                    print (output)
+                if data == b'shutdown':
+                    command = "/sbin/shutdown now"
+                    process = subprocess.Popen(command.split(), stdout=subprocess.PIPE)
+                    output = process.communicate()[0]
         except:
             self.connect()
 
