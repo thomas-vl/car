@@ -84,6 +84,7 @@ class cameraClass(object):
 
     def picture(self):
         folder = motor.getStatus()+steer.getStatus()
+        print(folder)
         if folder != "":
             self.camera.capture(folder+'/'+uuid.uuid1()+'.jpg')
 
