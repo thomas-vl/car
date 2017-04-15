@@ -79,12 +79,13 @@ class cameraClass(object):
         t.start()
 
     def worker(self):
-        self.picture()
-        time.sleep(1)
+        while True:
+            self.picture()
+            time.sleep(1)
 
     def picture(self):
         folder = motor.getStatus()+steer.getStatus()
-        print(folder)
+        print("folder:" + folder)
         if folder != "":
             self.camera.capture(folder+'/'+uuid.uuid1()+'.jpg')
 
