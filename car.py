@@ -54,12 +54,14 @@ class steerClass(object):
         wiringpi.digitalWrite(self.leftPin,0)
         wiringpi.digitalWrite(self.rightPin,1)
         self.status = "l"
+        camera.picture()
 
     def right(self):
         wiringpi.digitalWrite(self.enablePin,1)
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
         self.status = "r"
+        picture.picture()
 
     def straight(self):
         wiringpi.digitalWrite(self.enablePin,0)
@@ -80,7 +82,9 @@ class cameraClass(object):
 
     def worker(self):
         while True:
-            self.picture()
+            folder = motor.getStatus()+steer.getStatus()
+            if steer.getStatus() == "":
+                self.picture()
             time.sleep(1)
 
     def picture(self):
