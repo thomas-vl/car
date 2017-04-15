@@ -82,7 +82,8 @@ class cameraClass(object):
 
     def worker(self):
         while True:
-            if steer.getStatus() == "" and motor.getStatus() != "":
+            folder = motor.getStatus()+steer.getStatus()
+            if folder == "r" or folder == "b":
                 self.picture()
             time.sleep(1)
 
