@@ -88,7 +88,9 @@ class cameraClass(object):
         print("folder:" + folder)
         if folder != "":
             uid_str = uuid.uuid1().urn[9:]
-            self.camera.capture(folder+'/'+uid_str+'.jpg')
+            filename = folder+'/'+uid_str+'.jpg'
+            os.makedirs(os.path.dirname(filename), exist_ok=True)
+            self.camera.capture(filename)
 
 class crashSensor(object):
     def __init__(self):
