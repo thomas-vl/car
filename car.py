@@ -176,7 +176,7 @@ class btClass(object):
                 data = self.sock.recv(1024)
                 if data == b'forward':
                     motor.forward()
-                    motor.setSpeed(80)
+                    motor.setSpeed(70)
                 if data == b'backward':
                     motor.setSpeed(70)
                     motor.backward()
