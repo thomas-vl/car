@@ -5,6 +5,7 @@ import wiringpi
 
 class motorClass(object):
     def __init__(self):
+        self.status = ""
         self.pwmPin = 18
         self.forwardPin = 17
         self.backwardPin = 4
@@ -40,7 +41,7 @@ class motorClass(object):
 
 class steerClass(object):
     def __init__(self):
-        self.status = 1
+        self.status = ""
         self.enablePin = 25
         self.leftPin = 24
         self.rightPin = 23
