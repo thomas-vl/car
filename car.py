@@ -244,7 +244,7 @@ lightFR = light(20)
 crashS = crashSensor()
 motor = motorClass()
 steer = steerClass()
-camera = cameraClass(motor,steer)
+camera = cameraClass()
 bt = btClass()
 
 test = input('What do you want to test:(light,camera,crash)')
