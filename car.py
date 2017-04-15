@@ -175,8 +175,6 @@ class btClass(object):
         self.drive()
 
     def drive(self):
-        t = threading.Thread(name='camera',target=camera.worker())
-        t.start()
         try:
             while True:
                 data = self.sock.recv(1024)
