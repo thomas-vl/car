@@ -61,7 +61,7 @@ class steerClass(object):
         wiringpi.digitalWrite(self.leftPin,1)
         wiringpi.digitalWrite(self.rightPin,0)
         self.status = "r"
-        picture.picture()
+        camera.picture()
 
     def straight(self):
         wiringpi.digitalWrite(self.enablePin,0)
