@@ -87,7 +87,8 @@ class cameraClass(object):
         folder = motor.getStatus()+steer.getStatus()
         print("folder:" + folder)
         if folder != "":
-            self.camera.capture(folder+'/'+uuid.uuid1()+'.jpg')
+            uid_str = uuid.uuid1().urn[9:]
+            self.camera.capture(folder+'/'+uid_str+'.jpg')
 
 class crashSensor(object):
     def __init__(self):
