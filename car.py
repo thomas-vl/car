@@ -236,9 +236,9 @@ except:
 lightFL = light(26)
 lightFR = light(20)
 crashS = crashSensor()
-camera = cameraClass()
 motor = motorClass()
 steer = steerClass()
+camera = cameraClass()
 bt = btClass()
 
 test = input('What do you want to test:(light,camera,crash)')
