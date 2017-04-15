@@ -68,7 +68,7 @@ class steerClass(object):
         return self.status
 
 class cameraClass(object):
-    def __init__(self,motor,steer):
+    def __init__(self):
         #initialise camera
         self.camera = picamera.PiCamera()
         self.camera.rotation = 180
@@ -76,15 +76,13 @@ class cameraClass(object):
         self.camera.start_preview()
         t = threading.Thread(name='cameraThread',target=self.worker)
         t.start()
-        self.motor = motor
-        self.steer = steer
 
     def worker(self):
         self.picture()
         time.sleep(1)
 
     def picture(self):
-        folder = self.motor.getStatus()+self.steer.getStatus()
+        folder = motor.getStatus()+steer.getStatus()
         if folder != "":
             self.camera.capture(folder+'/'+uuid.uuid1()+'.jpg')
 
