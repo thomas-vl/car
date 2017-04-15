@@ -35,6 +35,9 @@ class motorClass(object):
         wiringpi.digitalWrite(self.backwardPin,0)
         self.status = ""
 
+    def getStatus(self):
+        return self.status
+
 class steerClass(object):
     def __init__(self):
         self.status = 1
@@ -61,8 +64,11 @@ class steerClass(object):
         wiringpi.digitalWrite(self.enablePin,0)
         self.status = ""
 
+    def getStatus(self):
+        return self.status
+
 class cameraClass(object):
-    def __init__(self):
+    def __init__(self,motor,steer):
         #initialise camera
         self.camera = picamera.PiCamera()
         self.camera.rotation = 180
@@ -70,13 +76,15 @@ class cameraClass(object):
         self.camera.start_preview()
         t = threading.Thread(name='cameraThread',target=self.worker)
         t.start()
+        self.motor = motor
+        self.steer = steer
 
     def worker(self):
         self.picture()
         time.sleep(1)
 
     def picture(self):
-        folder = motor.getStatus()+steer.getStatus()
+        folder = self.motor.getStatus()+self.steer.getStatus()
         if folder != "":
             self.camera.capture(folder+'/'+uuid.uuid1()+'.jpg')
 
@@ -238,7 +246,7 @@ lightFR = light(20)
 crashS = crashSensor()
 motor = motorClass()
 steer = steerClass()
-camera = cameraClass()
+camera = cameraClass(motor,steer)
 bt = btClass()
 
 test = input('What do you want to test:(light,camera,crash)')
