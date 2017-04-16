@@ -80,8 +80,8 @@ class cameraClass(object):
 
     def steerPicture(self,direction):
         folder = motor.getStatus()+direction
-        t = threading.Thread(name='cameraSteerThread',target=picture(folder))
-        t.start()
+        #t = threading.Thread(name='cameraSteerThread',target=picture(folder))
+        #t.start()
 
     def driveWorker(self):
         while True:
