@@ -68,6 +68,19 @@ class steerClass(object):
     def getStatus(self):
         return self.status
 
+class cameraThread (threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+        self.stop = False
+
+    def run(self):
+        if self.stop != True:
+
+
+    def stop(self):
+        self.stop = True
+
+
 class cameraClass(object):
     def __init__(self):
         #initialise camera
