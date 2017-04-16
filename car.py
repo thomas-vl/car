@@ -75,19 +75,22 @@ class cameraClass(object):
         self.camera.rotation = 180
         self.camera.resolution = (640, 480)
         self.camera.start_preview()
-        t = threading.Thread(name='cameraThread',target=self.worker)
+        t = threading.Thread(name='cameraThread',target=self.driveWorker)
         t.start()
 
-    def worker(self):
+    def steerPicture(self,direction):
+        folder = motor.getStatus()+direction
+        t = threading.Thread(name='cameraSteerThread',target=picture(folder))
+        t.start()
+
+    def driveWorker(self):
         while True:
             folder = motor.getStatus()+steer.getStatus()
             if folder == "r" or folder == "b":
-                self.picture()
+                self.picture(folder)
             time.sleep(1)
 
-    def picture(self):
-        folder = motor.getStatus()+steer.getStatus()
-        print("folder:" + folder)
+    def picture(self, folder):
         uid_str = uuid.uuid1().urn[9:]
         filename = folder+'/'+uid_str+'.jpg'
         os.makedirs(os.path.dirname(filename), exist_ok=True)
@@ -194,11 +197,11 @@ class btClass(object):
                 if data == b'idle':
                     motor.stop()
                 if data == b'left':
+                    camera.steerPicture("l")
                     steer.left()
-                    camera.picture()
                 if data == b'right':
+                    camera.steerPicture("r")
                     steer.right()
-                    camera.picture()
                 if data == b'straight':
                     steer.straight()
                 if data == b'reboot':
